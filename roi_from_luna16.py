@@ -5,7 +5,7 @@ import os, glob
 import csv
 import matplotlib.image as image
 
-save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\image0'
+save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\image'
 
 def load_itk_image(filename):
     itkimage = sitk.ReadImage(filename)
@@ -69,7 +69,7 @@ if __name__=="__main__":
     annotation_csv = os.path.join(src_root,'annotations.csv')
     annotations = read_csv(annotation_csv)
 
-    for sub_n in range(1) :
+    for sub_n in range(10) :
         idx = 1
         sub_n_str = 'subset' + str(sub_n)
         image_paths = glob.glob(os.path.join(dst_root,sub_n_str,'*.mhd'))
