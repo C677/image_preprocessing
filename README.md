@@ -23,3 +23,14 @@
 - Extract ```ROI``` from CT images(dicom) provided by [TCIA](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70224216)
 (```ROI```: The area where the nodule is located)
 - ```ROI``` is saved as .png
+
+## roi_from_covid(LuisBlanche)
+### lung_model.hdf5
+- model of tracking lung segmentation from CT image
+- reference : https://github.com/kairess/CT_lung_segmentation
+- 정확도가 높지 않음. 참고를 위해 작성하였을 뿐 사용은 추천하지 않음.
+### roi_from_covid(LuisBlanche).py
+- Extract ```ROI``` from CT images provided by https://www.kaggle.com/luisblanche/covidct
+(```ROI```: The lung area of a person suffering from a corona.)
+- ```ROI``` is saved as .png
+- Edit **save_path/src_root** before running
