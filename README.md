@@ -17,3 +17,9 @@
 (```ROI```: The lung area of a person suffering from a corona.)
 - ```ROI``` is saved as .png
 - Edit **save_path/src_root** before running
+
+
+## roi_from_tcia
+- Extract ```ROI``` from CT images(dicom) provided by [TCIA](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70224216)
+(```ROI```: The area where the nodule is located)
+- ```ROI``` is saved as .png
