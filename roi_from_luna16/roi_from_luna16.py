@@ -4,8 +4,9 @@ import numpy as np
 import os, glob
 import csv
 import matplotlib.image as image
+import cv2
 
-save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\image'
+save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\roi_nodule\\'
 
 def load_itk_image(filename):
     itkimage = sitk.ReadImage(filename)
@@ -33,10 +34,17 @@ def read_csv(filename):
 
     return annotations_dict
 
-def show_nodules(series_uid, num, ct_scan, nodules, Origin, Spacing, radius=20, pad=2): # radius is half of the square side length, pad is the width of the edge, max_show_num maximum number of impressions
+def write_csv(rois) :
+    f = open('nodule_annotations.csv', 'w', encoding='utf-8', newline='')
+    wr = csv.writer(f)
+    wr.writerow(['filename', 'minX', 'maxX', 'minY', 'maxY', 'classname'])
+    for roi in rois :
+        wr.writerow([roi[0], roi[1], roi[2], roi[3], roi[4], 'nodule'])
+    f.close()
+
+def show_nodules(series_uid, ct_scan, nodules, Origin, Spacing, radius=20, pad=2): # radius is half of the square side length, pad is the width of the edge, max_show_num maximum number of impressions
     show_index = []
     for idx in range(nodules.shape[0]): # lable is an array of nx4 dimensions, n is the number of lung nodules, 4 is x, y, z, and diameter
-        #if idx < max_show_num:
         if abs(nodules[idx, 0]) + abs(nodules[idx, 1]) + abs(nodules[idx, 2]) + abs(nodules[idx, 3]) == 0: continue
 
         x, y, z = int((nodules[idx, 0]-Origin[0])/SP[0]), int((nodules[idx, 1]-Origin[1])/SP[1]), int((nodules[idx, 2]-Origin[2])/SP[2])
@@ -53,14 +61,13 @@ def show_nodules(series_uid, num, ct_scan, nodules, Origin, Spacing, radius=20, 
         data[min(data.shape[0], y + radius):min(data.shape[0], y + radius + pad),
             max(0, x - radius):min(data.shape[1], x + radius)] = 3000 #"""
 
-        subdata = data.copy()
+        """subdata = data.copy()
         subdata = data[max(0, y - radius):min(data.shape[0], y + radius),
-            max(0, x - radius):min(data.shape[1], x + radius)]
+            max(0, x - radius):min(data.shape[1], x + radius)]"""
 
         if z in show_index: # check if there are nodules in the same slice, if there is, only one
             continue
-        show_index.append(z)
-        image.imsave(os.path.join(save_path,series_uid+'_'+str(num)+'_'+str(idx)+'.png'), subdata, cmap='gray')
+        return [series_uid, str(max(0, x - radius)), str(min(data.shape[1], x + radius)), str(max(0, y - radius)), str(min(data.shape[0], y + radius))]
 
 if __name__=="__main__":
     src_root = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\'
@@ -69,8 +76,9 @@ if __name__=="__main__":
     annotation_csv = os.path.join(src_root,'annotations.csv')
     annotations = read_csv(annotation_csv)
 
-    for sub_n in range(10) :
-        idx = 1
+    rois = []
+
+    for sub_n in range(1) :
         sub_n_str = 'subset' + str(sub_n)
         image_paths = glob.glob(os.path.join(dst_root,sub_n_str,'*.mhd'))
 
@@ -84,5 +92,6 @@ if __name__=="__main__":
             nodule_coords = []
             if series_uid in annotations.keys():
                 nodule_coords = np.array(annotations[series_uid])
-                show_nodules(series_uid, idx, numpyImage, nodule_coords,OR,SP)
-            idx += 1
+                rois.append(show_nodules(series_uid, numpyImage, nodule_coords,OR,SP))
+
+    write_csv(rois)
