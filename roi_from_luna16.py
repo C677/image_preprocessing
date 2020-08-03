@@ -4,6 +4,7 @@ import numpy as np
 import os, glob
 import csv
 import matplotlib.image as image
+import cv2
 
 save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\roi_nodule\\'
 

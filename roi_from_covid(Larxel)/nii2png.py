@@ -8,7 +8,7 @@ import matplotlib.image as image
 
 src_root = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\'
 save_path_ct = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\ct_scans\\'
-save_path_lung = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\lung_mask\\'
+save_path_lung = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\infection_mask\\'
 
 def read_nii(filepath):
     '''
@@ -25,7 +25,7 @@ def plot_sample(array_list, idx, color_map = 'nipy_spectral'):
     Plots and a slice with all available annotations
     '''
     image.imsave(os.path.join(save_path_ct, 'ct_scan'+'_'+str(idx)+'.png'), array_list[0], cmap='gray')
-    image.imsave(os.path.join(save_path_lung, 'lung_mask'+'_'+str(idx)+'.png'), array_list[1], cmap=color_map)
+    image.imsave(os.path.join(save_path_lung, 'infection_mask'+'_'+str(idx)+'.png'), array_list[2], cmap=color_map)
 
 # Read and examine metadata
 raw_data = pd.read_csv(src_root+"metadata.csv")
