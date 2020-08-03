@@ -6,7 +6,8 @@
 ## roi_from_luna16.py
 - Extract ```ROI``` from CT images(mhd) provided by LUNA16 
 (```ROI```: The area where the nodule is located)
-- ```ROI``` is saved as .png
+- ```ROI``` is saved as nodule_annotations.csv
+- nodule_annotations.csv is composed of [filename, minX, maxX, minY, maxY, classname]
 - Edit **save_path/src_root/dst_root** before running
 
 ## roi_from_covid(Larxel)
