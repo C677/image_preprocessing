@@ -6,8 +6,8 @@
 ## roi_from_luna16.py
 - Extract ```ROI``` from CT images(mhd) provided by LUNA16 
 (```ROI```: The area where the nodule is located)
-- ```ROI``` is saved as nodule_annotations.csv
-- nodule_annotations.csv is composed of [filename, minX, maxX, minY, maxY, classname]
+- ```ROI``` is saved as ```nodule_annotations.csv```
+- ```nodule_annotations.csv``` is composed of [filename, minX, maxX, minY, maxY, classname]
 - Edit **save_path/src_root/dst_root** before running
 
 ## roi_from_covid(Larxel)
@@ -16,7 +16,8 @@
 ### roi_from_covid(Larxel).py
 - Extract ```ROI``` from CT images provided by https://www.kaggle.com/andrewmvd/covid19-ct-scans/data
 (```ROI```: The lung area of a person suffering from a corona.)
-- ```ROI``` is saved as .png
+- ```ROI``` is saved as ```covid(Larxel)_annotations.csv```
+- ```covid(Larxel)_annotations.csv``` is composed of [filename, minX, maxX, minY, maxY, classname]
 - Edit **save_path/src_root** before running
 
 
