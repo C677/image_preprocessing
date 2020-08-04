@@ -5,7 +5,7 @@ import os, glob
 import csv
 import matplotlib.image as image
 
-save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\roi_nodule\\'
+save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\nodule\\'
 
 def load_itk_image(filename):
     itkimage = sitk.ReadImage(filename)
@@ -49,6 +49,7 @@ def show_nodules(series_uid, ct_scan, nodules, Origin, Spacing, radius=20, pad=2
         x, y, z = int((nodules[idx, 0]-Origin[0])/SP[0]), int((nodules[idx, 1]-Origin[1])/SP[1]), int((nodules[idx, 2]-Origin[2])/SP[2])
         data = ct_scan[z]
         radius=int(nodules[idx, 3]/SP[0]/2)
+
         #pad = 2*radius
         # Note y stands for the vertical axis and x stands for the horizontal axis
         """data[max(0, y - radius):min(data.shape[0], y + radius),
@@ -64,6 +65,7 @@ def show_nodules(series_uid, ct_scan, nodules, Origin, Spacing, radius=20, pad=2
         subdata = data[max(0, y - radius):min(data.shape[0], y + radius),
             max(0, x - radius):min(data.shape[1], x + radius)]"""
 
+        image.imsave(save_path+str(series_uid)+'.png', data, cmap='gray')
         if z in show_index: # check if there are nodules in the same slice, if there is, only one
             continue
         return [series_uid, str(max(0, x - radius)), str(min(data.shape[1], x + radius)), str(max(0, y - radius)), str(min(data.shape[0], y + radius))]
@@ -77,7 +79,7 @@ if __name__=="__main__":
 
     rois = []
 
-    for sub_n in range(1) :
+    for sub_n in range(0, 10) :
         sub_n_str = 'subset' + str(sub_n)
         image_paths = glob.glob(os.path.join(dst_root,sub_n_str,'*.mhd'))
 
