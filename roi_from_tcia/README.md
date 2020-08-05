@@ -16,4 +16,4 @@
 - For folder: 
 ```python visualization.py --dicom-mode CT --dicom-path path/to/DICOM/folder --annotation-path path/to/ANNOTATION/folder --classfile category.txt```
 
-Press `ESC` to show next one
+- Press `ESC` to show next one
