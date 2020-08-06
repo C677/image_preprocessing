@@ -57,13 +57,13 @@ class XML_preprocessor(object):
 
     def _to_one_hot(self, name):
         one_hot_vector = [0] * self.num_classes
-        if name == 'A':
+        if name == 'A' or 'a':
             one_hot_vector[0] = 1
-        elif name == 'B':
+        elif name == 'B' or 'b':
             one_hot_vector[1] = 1
-        elif name == 'E':
+        elif name == 'E' or 'e':
             one_hot_vector[2] = 1
-        elif name == 'G':
+        elif name == 'G' or 'g':
             one_hot_vector[3] = 1
         else:
             print('unknown label: %s' %name)

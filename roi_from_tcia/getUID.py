@@ -8,7 +8,11 @@ from utils import *
 
 def getUID_path(path):
     dict = {}
-    list = os.listdir(path)
+    uid_list = []
+    try:
+        list = os.listdir(path)
+    except:
+        return -1
 
     for date in list:
         date_path = os.path.join(path, date)
