@@ -5,7 +5,7 @@ import csv
 
 src_root_ct = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\ct_scans\\'
 src_root_lung = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\infection_mask\\'
-save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\roi_lung\\'
+save_path = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\internship\\C677\\covid\\Larxel\\'
 
 def read_png(filepath):
     scans = []
@@ -31,23 +31,20 @@ def write_csv(rois) :
 
 def get_roi(lung_mask, idx, filename) :
     mask = cv2.imread(lung_mask)
-
-    height, width, channel = mask.shape
-    matrix = cv2.getRotationMatrix2D((width/2, height/2), 90, 1)
-    mask = cv2.warpAffine(mask, matrix, (width, height))
+    mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    mask = cv2.resize(mask, (512, 512), interpolation=cv2.INTER_CUBIC)
 
     imgray = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
     ret, thr = cv2.threshold(imgray, 70, 255, cv2.THRESH_BINARY)
 
     contours, _ = cv2.findContours(thr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    """original = cv2.imread(ct_scan)
+    original = cv2.imread(src_root_ct+filename)
+    original = cv2.rotate(original, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    original = cv2.resize(original, (512, 512), interpolation=cv2.INTER_CUBIC)
+    cv2.imwrite(os.path.join(save_path, filename), original)
 
-    height, width, channel = original.shape
-    matrix = cv2.getRotationMatrix2D((width/2, height/2), 90, 1)
-    original = cv2.warpAffine(original, matrix, (width, height))
-
-    kernel = np.ones((9,9), np.uint8)
+    """kernel = np.ones((9,9), np.uint8)
     thr = cv2.morphologyEx(thr, cv2.MORPH_CLOSE, kernel)
     thr = cv2.morphologyEx(thr, cv2.MORPH_OPEN, kernel)
 
@@ -61,7 +58,6 @@ def get_roi(lung_mask, idx, filename) :
         c0 = contours[i]
         x, y, w, h = cv2.boundingRect(c0)
         roi.append([filename, str(x), str(x+w), str(y), str(y+h)])
-
         """crop_left = result[y:y+h, x:x+w]
         cv2.imwrite(os.path.join(save_path, str(idx)+'_'+str(i)+'.png'), crop_left)"""
 
