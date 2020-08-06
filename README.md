@@ -15,7 +15,7 @@
 - Convert .nii to .png
 ### roi_from_covid(Larxel).py
 - Extract ```ROI``` from CT images provided by https://www.kaggle.com/andrewmvd/covid19-ct-scans/data
-(```ROI```: The lung area of a person suffering from a corona.)
+(```ROI```: The lung area of a person suffering from a corona)
 - ```ROI``` is saved as ```covid(Larxel)_annotations.csv```
 - ```covid(Larxel)_annotations.csv``` is composed of [filename, minX, maxX, minY, maxY, classname]
 - Edit **save_path/src_root** before running
@@ -33,6 +33,14 @@
 - 정확도가 높지 않음. 참고를 위해 작성하였을 뿐 사용은 추천하지 않음.
 ### roi_from_covid(LuisBlanche).py
 - Extract ```ROI``` from CT images provided by https://www.kaggle.com/luisblanche/covidct
-(```ROI```: The lung area of a person suffering from a corona.)
+(```ROI```: The lung area of a person suffering from a corona)
 - ```ROI``` is saved as .png
+- Edit **save_path/src_root** before running
+
+## roi_from_covid(MedSeg)
+### roi_from_covid(MedSeg).py
+- Extract ```ROI``` from CT images provided by MedSeg
+(```ROI```: The lung area of a person suffering from a corona)
+- ```ROI``` is saved as ```covid(MedSeg)_annotations.csv```
+- ```covid(MedSeg)_annotations.csv``` is composed of [filename, minX, maxX, minY, maxY, classname]
 - Edit **save_path/src_root** before running
