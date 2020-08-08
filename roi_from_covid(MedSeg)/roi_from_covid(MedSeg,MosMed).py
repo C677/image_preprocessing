@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 import csv
 
-src_root_ct = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\CT_COVID\\num1\\tr_im\\'
-src_root_lung = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\CT_COVID\\num1\\tr_mask\\'
+src_root_ct = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\CT_COVID\\other\\all\\'
+src_root_lung = 'C:\\Users\\hyoj_\\OneDrive\\Desktop\\CT_COVID\\other\\mask\\'
 
 def read_filename():
     ctscans = []
@@ -12,7 +12,8 @@ def read_filename():
     for file in os.listdir(src_root_ct):
         if (file.find('.png') is not -1):
             ctscans.append(file)
-            masks.append(src_root_lung+'tr_mask_'+file.split('_')[-1])
+            names = file.split('_')
+            masks.append(src_root_lung+names[0]+'_'+names[1]+'_mask_'+names[2])
     return ctscans, masks
 
 def write_csv(rois) :
@@ -45,5 +46,4 @@ rois = []
 
 for idx in range(len(masks)) : 
     rois.extend(get_roi(masks[idx], idx, ctscans[idx]))
-
 write_csv(rois)
